@@ -67,3 +67,15 @@ fun first_answer f xs =
      | x::xs' => if f x = SOME(x) then x else first_answer f xs'
 		  
     
+					    
+(*8*)
+fun all_answers f xs =
+    let fun all_answers_aux(f, xs, some_lst) = 
+	    case xs of
+		[] => SOME(some_lst)
+	      | x::xs' => if f x = NONE then NONE else all_answers_aux(f, xs', (valOf (f x))@some_lst)
+    in
+	all_answers_aux(f, xs, [])
+    end
+	
+	
