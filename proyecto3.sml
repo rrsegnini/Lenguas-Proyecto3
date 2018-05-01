@@ -1,6 +1,7 @@
 (* Proyecto 3 *)
 (* Roberto Rojas Segnini *)
 (* Daniel Alvarado Bonilla *)
+exception NoAnswer 
 
 (*1*)				     
 fun only_capitals(xs)=
@@ -45,11 +46,24 @@ fun longest_capitalized(xs)=
 	fun longest_capitalized_aux(xs) = 
 	    case xs of
 		[] => [] 
-	      | x::xs' => if Char.isUpper(String.sub(x,0)) then x::longest_capitalized_aux(xs') else longest_capitalized_aux(xs')
+	      | x::xs' => if (Char.isUpper o String.sub) (x,0) then x::longest_capitalized_aux(xs') else longest_capitalized_aux(xs')
     in
 	lcs xs'
     end
 	
     
 
-(*6*)	 
+(*6*)
+fun rev_string(s)=
+    (String.implode o rev o String.explode) (s)
+
+
+
+					    
+(*7*)
+fun first_answer f xs =
+    case xs of
+	[] => raise NoAnswer
+     | x::xs' => if f x = SOME(x) then x else first_answer f xs'
+		  
+    
