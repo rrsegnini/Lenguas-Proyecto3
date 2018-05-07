@@ -107,6 +107,8 @@ fun g f1 f2 p =
 
 
 
-(*9*)
+	(*9*)
 
+
+fun count_wildcards(pattern) = 
 	
