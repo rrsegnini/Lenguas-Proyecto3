@@ -118,7 +118,6 @@ fun all_answers f xs =
     end
 	
 	
-<<<<<<< HEAD
 (*9*)
 
 	(*a*)
@@ -147,38 +146,3 @@ fun check_pat(p)=
 
 	| _  => false 
 *)
-=======
-	(*******************************************************************)
-
-datatype pattern = Wildcard
-		 | Variable of string
-	|UnitP
-	|ConstP of int
-	|TupleP of pattern list
-	|ConstructorP of string * pattern
-
-datatype valu = Const of int
-	|Unit
-	|Tuple of valu list
-	|Constructor of string * valu
-
-fun g f1 f2 p =
-    let
-	val r = g f1 f2
-    in
-	case p of
-	    Wildcard => f1()
-	  | Variable x  =>f2 x
-	  | TupleP ps => List.foldl(fn(p,i) => (r p) + i) 0 ps
-	  | ConstructorP(_,p) => r p
-	  | _ => 0
-    end
-
-
-
-	(*9*)
-
-
-fun count_wildcards(pattern) = 
-	
->>>>>>> origin/master
