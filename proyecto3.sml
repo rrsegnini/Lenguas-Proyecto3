@@ -64,7 +64,7 @@ fun longest_string4(xs)=
 							then true
 							else false)
     in
-	lsh xs
+ 	lsh xs
     end
 			  
 
@@ -141,11 +141,16 @@ fun check_pat(p)=
 	fun get_strings(p)=
 	    foldl (fn (x, x') => case x of Variable x'' => x''
 					| _  => "" ) "" [p]
+	fun all_diff(xs)=
+	    foldl(fn (x, acc) => acc = (List.exists(fn y => x = y ) xs)) false  xs
+	
 
 
 
 
     in
-	get_strings(p)
+	all_str = get_strings(p)
+	all_diff(all_str)
     end
-	
+
+
