@@ -135,14 +135,17 @@ fun count_some_var(s, p)=
    g (fn x => 0) (fn x2 => if x2 = s then 1 else 0 ) p 
 				
 
-(*10
+(*10*)
 fun check_pat(p)=
-    case p of
-	Variable x => (case x of
-			  x::[] => true
-			| x::x'::xs => if x <> x'
-				       then check_pat(x::xs) andalso check_pat(x'::xs)
-				       else false)
+    let
+	fun get_strings(p)=
+	    foldl (fn (x, x') => case x of Variable x'' => x''
+					| _  => "" ) "" [p]
 
-	| _  => false 
-*)
+
+
+
+    in
+	get_strings(p)
+    end
+	
