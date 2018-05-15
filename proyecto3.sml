@@ -137,20 +137,29 @@ fun count_some_var(s, p)=
 
 (*10*)
 fun check_pat(p)=
-    let
-	fun get_strings(p)=
-	    foldl (fn (x, x') => case x of Variable x'' => x''
-					| _  => "" ) "" [p]
-	fun all_diff(xs)=
-	    foldl(fn (x, acc) => acc = (List.exists(fn y => x = y ) xs)) false  xs
+	let
+		fun get_strings(p)=
+			case p of Variable x => [x] 
+				| TupleP xs => foldl( fn (x,x') => get_strings(x)@x') [] xs
+				| ConstructorP xs=> [#1 xs]@get_strings(#2 xs)
+				| ConstP x => [""]
+				| UnitP => [""]
+				| Wildcard => [""]
+		fun all_diff(xs)=
+		   foldl(fn (x, acc) => if acc = true then if List.exists(fn y => x = y) xs 
+										then acc = false 
+										else acc = true 
+									else acc = false) false  xs
+			
+		val strings_list = get_strings p;
+
+	in
+	    all_diff strings_list
+	end
+
+(*11*)
+
+fun match (v,p) =
+    
+    
 	
-
-
-
-
-    in
-	all_str = get_strings(p)
-	all_diff(all_str)
-    end
-
-
