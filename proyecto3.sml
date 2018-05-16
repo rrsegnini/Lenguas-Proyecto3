@@ -159,7 +159,47 @@ fun check_pat(p)=
 
 (*11*)
 
-fun match (v,p) =
+fun match_aux(v,p)=
+   (* let
+	fun match_aux(v,p)=*)
+    case (v,p) of
+	(Tuple v',TupleP p') => case (v',p') of
+				    (_::xs,Wildcard::xs') => match_aux(Tuple xs,TupleP xs')
+				  | (Const x::xs, ConstP x'::xs') => if x=x'
+								     then match_aux(Tuple xs,TupleP xs')
+								     else match_aux(Tuple xs,TupleP xs')
+				  | (Constructor(s,x)::xs,ConstructorP(s',x')::xs') => if s = s'
+										       then match_aux(Tuple [x], TupleP [x'])
+											    @match_aux(Tuple xs,TupleP xs')
+												  else match_aux(Tuple xs,TupleP xs')
+				  | (Tuple x::xs, TupleP x'::xs') =>
+				    let
+				      val ans = 5(*all_answers match (ListPair.zip(x, x'))*)
+				    in
+					if length x = length x'
+					   andalso ans <> 0
+					then match_aux(Tuple x, TupleP x')@match_aux(Tuple xs,TupleP xs')
+					else match_aux(Tuple xs,TupleP xs')
+				    end
+
+				  |(x::xs, Variable x'::xs') => (x',x)::match_aux(Tuple xs, TupleP xs')
+				  | _ => []
+					
+   (* in
+	SOME(match(v,p))
+    end*)
+	
+
+
+
+
+
+
+
+
+
+
+					     
     
     
 	
